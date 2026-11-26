@@ -85,7 +85,7 @@ img { image-rendering: pixelated; }
 .nav.solid .nav-logo { opacity: 1; pointer-events: auto; }
 .nav-logo img { display: block; width: 216px; height: 52px; }   /* the logo at exactly 1x: crisp */
 .nav-links { display: flex; align-items: center; gap: 6px; }
-.btn-nav { min-width: 0; margin: 0; font-size: 1rem; border-width: 18px 20px 20px 18px; padding: 0 6px; line-height: 1.1; }
+.btn-nav { min-width: 0; margin: 0; font-size: 1rem; border-width: 18px 20px 20px 18px; padding: 0 6px; line-height: 22px; }   /* 60 px tall, like the icon buttons */
 
 /* ── hero: the layers, the logo, the platform buttons, the walkers ───────────────────────────────────────── */
 .hero { position: relative; overflow: hidden; }
@@ -199,6 +199,12 @@ main { background: var(--paper); }
 }
 .social:hover { transform: translateY(-3px); }
 .social svg { width: 30px; height: 30px; fill: #fff; filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.3)); }
+.social-discord { border-image-source: url("img/kit/btn_discord.png"); }
+.social-discord:hover { border-image-source: url("img/kit/btn_discord_hover.png"); }
+.social svg .eye { fill: #4651d8; }
+.nav-socials { display: flex; gap: 6px; margin-left: 6px; }
+.social-nav { width: auto; height: auto; padding: 0 5px; }   /* same build as .btn-nav: the border + the content, so the row lines up */
+.social-nav svg { width: 22px; height: 22px; display: block; }
 .social-tiktok { border-image-source: url("img/kit/btn_blue.png"); }   /* the kit's dark brown: closest to TikTok black */
 .social-tiktok:hover { border-image-source: url("img/kit/btn_blue_hover.png"); }
 .social-instagram { border-image-source: url("img/kit/btn_orange.png"); }
@@ -218,7 +224,7 @@ main { background: var(--paper); }
 @media (max-width: 800px) {
   .row { grid-template-columns: 1fr; gap: 1.2rem; padding: 2.5rem 1.2rem; }
   .row-flip .row-text { order: 0; }
-  .nav-links .btn-discord { display: none; }   /* Discord is in the footer */
+  .nav-socials { display: none; }   /* phones: the icons are in the footer */
   .nav-logo img { width: 108px; height: 26px; }
   .btn-nav { font-size: 0.85rem; }
   .hero-tag { font-size: 1.2rem; }
