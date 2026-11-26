@@ -9,9 +9,11 @@
   const links = {
     windows: "#download", android: "#download",                       // hero icons: to the install steps
     "windows-file": file(SITE.windows.file), "android-file": file(SITE.android.file),
-    discord: SITE.discord,
+    discord: SITE.discord, tiktok: SITE.tiktok, instagram: SITE.instagram, youtube: SITE.youtube,
   };
   document.querySelectorAll("[data-link]").forEach((a) => { if (links[a.dataset.link]) a.href = links[a.dataset.link]; });
+  // social buttons without a link yet stay hidden
+  document.querySelectorAll(".social").forEach((a) => { if (!links[a.dataset.link]) a.style.display = "none"; });
 
   // before the launch the download buttons count down instead of downloading; at the launch they switch by themselves
   const launch = SITE.launch ? new Date(SITE.launch).getTime() : 0;

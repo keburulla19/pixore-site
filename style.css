@@ -189,6 +189,22 @@ main { background: var(--paper); }
 .downloads .btn { margin-left: 0; }
 
 .footer { text-align: center; padding: 2rem 1rem; background: var(--dark); color: #fde7c0; font-weight: 800; }
+.socials { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; }
+.social {
+  display: flex; align-items: center; justify-content: center;
+  width: 64px; height: 60px;
+  border-style: solid; border-width: 18px 20px 20px 18px;
+  border-image-slice: 9 10 10 9 fill; border-image-repeat: stretch;
+  transition: transform 0.12s steps(2);
+}
+.social:hover { transform: translateY(-3px); }
+.social svg { width: 30px; height: 30px; fill: #fff; filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.3)); }
+.social-tiktok { border-image-source: url("img/kit/btn_blue.png"); }   /* the kit's dark brown: closest to TikTok black */
+.social-tiktok:hover { border-image-source: url("img/kit/btn_blue_hover.png"); }
+.social-instagram { border-image-source: url("img/kit/btn_orange.png"); }
+.social-instagram:hover { border-image-source: url("img/kit/btn_orange_hover.png"); }
+.social-youtube { border-image-source: url("img/kit/btn_red.png"); }
+.social-youtube:hover { border-image-source: url("img/kit/btn_red_hover.png"); }
 .small-light { font-size: 0.9rem; color: #b89a74; font-weight: 600; }
 
 /* ── fade in on scroll ───────────────────────────────────────────────────────────────────────────────────── */

@@ -4,6 +4,10 @@
 const SITE = {
   repo: "keburulla19/pixore-site",            // the public site repo: downloads = its latest release (publish_site.sh)
   discord: "https://discord.gg/yTE9RgfEEu",
+  // social pages (footer "Follow Pixore"): a button shows only once its link is filled in
+  tiktok: "https://www.tiktok.com/@pixoregame",
+  instagram: "https://www.instagram.com/pixoregame/",
+  youtube: "https://www.youtube.com/@Pixoregame",
   version: "Open beta",                       // shown under the download buttons
   launch: "2026-11-27T16:00:00+02:00",         // the beta opens (Finnish time): until then the download buttons count down
   windows: { file: "Pixore-Windows.zip", size: "about 70 MB" },
