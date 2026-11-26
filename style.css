@@ -1,0 +1,210 @@
+/* Pixore website: the game's UI kit (orange) as 9-slices at a whole-number scale --k; the hero art at --art. */
+@font-face {
+  font-family: "Nunito";
+  src: url("fonts/Nunito.ttf") format("truetype");
+  font-weight: 200 1000;
+  font-display: swap;
+}
+
+:root {
+  --k: 2;
+  --art: 2;
+  --ink: #3b2414;
+  --ink-soft: #7a4f2a;
+  --paper: #fdf1dc;
+  --dirt: #5b3a24;
+  --dark: #2a1a10;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: "Nunito", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+}
+img { image-rendering: pixelated; }
+
+/* ── buttons: the kit button art, 9-sliced (margins l9 t9 r10 b10) ─────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  min-width: 10em;
+  text-align: center;
+  font-weight: 900;
+  font-size: 1.15rem;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+  border-style: solid;
+  border-width: calc(var(--k) * 9px) calc(var(--k) * 10px) calc(var(--k) * 10px) calc(var(--k) * 9px);
+  border-image-slice: 9 10 10 9 fill;
+  border-image-repeat: stretch;
+  padding: 0 0.6em;
+  margin: 0.3em;
+  cursor: pointer;
+  transition: transform 0.12s steps(2);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-wait { cursor: default; filter: saturate(0.6); }
+.btn-wait:hover { transform: none; }
+.btn-small { min-width: 0; font-size: 0.95rem; border-width: 18px 20px 20px 18px; }
+.btn-green { border-image-source: url("img/kit/btn_green.png"); }
+.btn-green:hover { border-image-source: url("img/kit/btn_green_hover.png"); }
+.btn-green:active { border-image-source: url("img/kit/btn_green_pressed.png"); }
+.btn-orange { border-image-source: url("img/kit/btn_orange.png"); }
+.btn-orange:hover { border-image-source: url("img/kit/btn_orange_hover.png"); }
+.btn-orange:active { border-image-source: url("img/kit/btn_orange_pressed.png"); }
+.btn-discord { border-image-source: url("img/kit/btn_discord.png"); }
+.btn-discord:hover { border-image-source: url("img/kit/btn_discord_hover.png"); }
+.btn-discord:active { border-image-source: url("img/kit/btn_discord_pressed.png"); }
+
+/* the gold game window (margins 16 16 17 17) */
+.panel {
+  border-style: solid;
+  border-width: calc(var(--k) * 16px) calc(var(--k) * 17px) calc(var(--k) * 17px) calc(var(--k) * 16px);
+  border-image: url("img/kit/panel_gold.png") 16 17 17 16 fill stretch;
+  padding: 0.2em 0.6em;
+}
+.panel h3 { margin: 0 0 0.3em; font-size: 1.5rem; font-weight: 900; }
+
+/* ── nav: buttons floating over the hero; past the hero a plank bar (the hotbar frame look) + the small logo ──── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px;
+  transition: background-color 0.25s steps(3), box-shadow 0.25s steps(3);
+}
+.nav.solid {
+  background: #5a331d;
+  box-shadow: inset 0 2px 0 #7d4a2a, inset 0 -2px 0 #3d2112, 0 3px 0 #e8822e, 0 7px 0 rgba(42, 26, 16, 0.35);
+}
+.nav-logo { display: block; opacity: 0; pointer-events: none; transition: opacity 0.25s steps(3); }
+.nav.solid .nav-logo { opacity: 1; pointer-events: auto; }
+.nav-logo img { display: block; width: 216px; height: 52px; }   /* the logo at exactly 1x: crisp */
+.nav-links { display: flex; align-items: center; gap: 6px; }
+.btn-nav { min-width: 0; margin: 0; font-size: 1rem; border-width: 18px 20px 20px 18px; padding: 0 6px; line-height: 1.1; }
+
+/* ── hero: the layers, the logo, the platform buttons, the walkers ───────────────────────────────────────── */
+.hero { position: relative; overflow: hidden; }
+.hero .layer {
+  position: absolute; left: 0; right: 0; top: 0; height: 100%;
+  background-repeat: repeat-x;
+  image-rendering: pixelated;
+}
+.hero .layer-clouds { right: auto; will-change: transform; }
+.hero-inner {
+  position: relative; z-index: 3;
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: calc(60px + var(--art) * 14px);
+  text-align: center;
+}
+.hero-logo {
+  width: calc(216px * var(--art)); max-width: 92vw; height: auto;
+  animation: bob 3.2s steps(4) infinite;
+}
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(var(--art) * -2px)); } }
+.hero-tag, .hero-dl-title, .hero-note {
+  color: #fff; font-weight: 900; margin: 0.2em 1em;
+  text-shadow: 0 3px 0 rgba(30, 40, 80, 0.6), 0 0 14px rgba(30, 40, 80, 0.4);
+}
+.hero-tag { font-size: 1.6rem; }
+.hero-dl-title { font-size: 1.15rem; margin-top: 1em; }
+.hero-note { font-size: 0.95rem; }
+.platforms { display: flex; gap: 0.8rem; margin: 0.4em; }
+.platform {
+  display: flex; flex-direction: column; align-items: center; gap: 0.2em;
+  width: 7.5rem; padding: 0.7rem 0.4rem 0.5rem;
+  border-style: solid;
+  border-width: 18px 20px 20px 18px;
+  border-image: url("img/kit/btn_orange.png") 9 10 10 9 fill stretch;
+  color: #fff; font-weight: 900; text-decoration: none; text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+  transition: transform 0.12s steps(2);
+}
+.platform:hover { border-image-source: url("img/kit/btn_orange_hover.png"); transform: translateY(-3px); }
+.platform:active { border-image-source: url("img/kit/btn_orange_pressed.png"); }
+.platform svg { width: 48px; height: 48px; fill: #fff; filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.3)); }
+.platform svg .eye { fill: #e8822e; }
+
+.walkers { position: absolute; left: 0; right: 0; bottom: calc(var(--art) * 22px); height: calc(var(--art) * 64px); z-index: 2; pointer-events: none; }
+.walker {
+  position: absolute; bottom: 0; left: 0;
+  width: calc(var(--art) * 48px); height: calc(var(--art) * 64px);
+  background-size: calc(var(--art) * 384px) calc(var(--art) * 64px);
+  image-rendering: pixelated;
+  pointer-events: auto; cursor: pointer;
+}
+.burst { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+
+/* ── content rows: text + a screenshot carousel, alternating sides ──────────────────────────────────────── */
+main { background: var(--paper); }
+.row {
+  display: grid; grid-template-columns: 1fr 1.35fr; gap: 2.5rem; align-items: center;
+  max-width: 1150px; margin: 0 auto; padding: 3.5rem 1.5rem;
+}
+.row-flip .row-text { order: 2; }
+.row h2 { font-size: 2.2rem; font-weight: 1000; margin: 0 0 0.4em; color: var(--dirt); }
+.row p { font-size: 1.1rem; margin: 0 0 0.8em; }
+.carousel {
+  position: relative; aspect-ratio: 16 / 9;
+  border: 4px solid var(--dark); border-radius: 6px; overflow: hidden;
+  box-shadow: 0 8px 0 rgba(42, 26, 16, 0.25);
+  background: #3f8fe0;
+}
+.carousel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.6s; }
+.carousel img.on { opacity: 1; }
+.car-btn {
+  position: absolute; top: 50%; width: 34px; height: 34px; margin-top: -17px;
+  border: 3px solid var(--dark); border-radius: 50%; background: rgba(253, 241, 220, 0.85);
+  cursor: pointer; font: 900 18px/1 "Nunito", sans-serif; color: var(--dark);
+}
+.car-btn::before { content: "\2039"; }
+.car-next::before { content: "\203A"; }
+.car-prev { left: 8px; }
+.car-next { right: 8px; }
+
+/* ── news + download + footer ────────────────────────────────────────────────────────────────────────────── */
+.section { padding: 3.5rem 1.5rem; max-width: 1150px; margin: 0 auto; }
+.section-alt { max-width: none; background: linear-gradient(#4f8f3a, #3f7a2e); }
+.section-alt > * { max-width: 1150px; margin-left: auto; margin-right: auto; }
+.section-title { text-align: center; margin: 0 0 1.2rem; font-size: 2.4rem; font-weight: 1000; color: var(--dirt); }
+.section-alt .section-title { color: #fff; text-shadow: 0 4px 0 var(--dark); }
+.section-lead { text-align: center; color: #fff; font-weight: 700; font-size: 1.15rem; margin: 0 auto 1.5rem; max-width: 40em; }
+.small { font-size: 0.9rem; color: var(--ink-soft); }
+.center { text-align: center; color: #e8f5d8; }
+
+.news { display: grid; gap: 2rem; max-width: 900px; margin: 0 auto; }
+.news-post { display: grid; grid-template-columns: 1fr; border: 4px solid var(--dark); border-radius: 6px; overflow: hidden; background: #fff; box-shadow: 0 8px 0 rgba(42, 26, 16, 0.18); }
+.news-img { width: 100%; aspect-ratio: 32 / 11; object-fit: cover; object-position: 50% 62%; border-bottom: 4px solid var(--dark); }   /* the scene, not the HUD edge */
+.news-body { padding: 1rem 1.4rem 1.2rem; }
+.news-body h3 { margin: 0; font-size: 1.6rem; font-weight: 1000; color: var(--dirt); }
+.news-body .date { margin: 0 0 0.6em; color: var(--ink-soft); font-weight: 700; font-size: 0.95rem; }
+.news-body ul { padding-left: 1.3em; }
+.news-body p { margin: 0.4em 0; }
+
+.downloads { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 1.5rem; margin-bottom: 1rem; }
+.downloads ol { padding-left: 1.3em; }
+.downloads .btn { margin-left: 0; }
+
+.footer { text-align: center; padding: 2rem 1rem; background: var(--dark); color: #fde7c0; font-weight: 800; }
+.small-light { font-size: 0.9rem; color: #b89a74; font-weight: 600; }
+
+/* ── fade in on scroll ───────────────────────────────────────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.seen { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-logo { animation: none; }
+}
+
+@media (max-width: 800px) {
+  .row { grid-template-columns: 1fr; gap: 1.2rem; padding: 2.5rem 1.2rem; }
+  .row-flip .row-text { order: 0; }
+  .nav-links .btn-discord { display: none; }   /* Discord is in the footer */
+  .nav-logo img { width: 108px; height: 26px; }
+  .btn-nav { font-size: 0.85rem; }
+  .hero-tag { font-size: 1.2rem; }
+  .platform { width: 6.2rem; }
+}
