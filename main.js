@@ -49,13 +49,17 @@
     k = Math.max(vw < 560 ? 1 : 2, Math.min(4, Math.floor((vh * 0.85) / H)));
     root.style.setProperty("--k", String(vw < 560 ? 1 : Math.min(3, k)));
     root.style.setProperty("--art", String(k));
-    hero.style.height = H * k + "px";
+    // phones (narrow + tall): the 640 x 360 picture at 1x is only ~200 px of a ~750 px screen, too cramped for the
+    // logo + tagline + buttons + walkers. Make the hero ~70% of the screen; the art keeps its scale and stays
+    // anchored to the bottom (grass + walkers), the sky fills the top (layer_sky repeats; it is plain gradient).
+    hero.style.height = (vw < 560 ? Math.max(H * k, Math.round(vh * 0.72)) : H * k) + "px";
     for (const el of layers) {
       const name = el.dataset.layer;
       const strip = name === "clouds" ? "../menu/clouds" : `layer_${name}`;
       el.style.backgroundImage = `url("img/hero/${strip}.png")`;
       const sw = (name === "clouds" ? 1280 : 2 * W) * k;
       el.style.backgroundSize = `${sw}px ${H * k}px`;
+      el.style.backgroundPositionY = "bottom";   // the art sits on the hero's floor (a taller phone hero adds sky above)
       // the original (unmirrored) picture centred on the screen; the mirror strips carry it on both sides
       if (name !== "clouds") el.style.backgroundPositionX = `${Math.round(vw / 2 - (W * k) / 2)}px`;
       else el.style.width = `${vw + sw}px`;   // one strip wider than the screen: it slides, never runs out

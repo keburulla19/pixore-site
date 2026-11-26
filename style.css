@@ -230,3 +230,40 @@ main { background: var(--paper); }
   .hero-tag { font-size: 1.2rem; }
   .platform { width: 6.2rem; }
 }
+
+/* ── phones (Leevi 2026-11-26: "make it support mobile") ─────────────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  /* nav: small kit buttons that always fit; the small logo only on the plank bar */
+  .nav { padding: 6px 8px; }
+  .nav-links { gap: 4px; }
+  .btn-nav { font-size: 0.8rem; border-width: 9px 10px 10px 9px; padding: 0 4px; line-height: 18px; }
+  .nav-logo img { width: 108px; height: 26px; }
+  /* hero: the art anchored to the bottom (grass + walkers), the sky stretched up behind the logo */
+  .hero { background: #2a62cc; }   /* the sky art's own top colour: the taller phone hero continues it seamlessly */
+  .hero-inner { padding-top: 64px; }
+  .hero-logo { width: 216px; max-width: 80vw; }
+  .hero-tag { font-size: 1.15rem; margin-top: 0.4em; }
+  .hero-dl-title { margin-top: 0.8em; }
+  .platform { width: 6.4rem; padding: 0.5rem 0.3rem 0.4rem; border-width: 9px 10px 10px 9px; }
+  .platform svg { width: 40px; height: 40px; }
+  /* text */
+  .row { padding: 2rem 1rem; }
+  .row h2 { font-size: 1.7rem; }
+  .row p { font-size: 1rem; }
+  .section { padding: 2.5rem 1rem; }
+  .section-title { font-size: 1.9rem; }
+  .section-lead { font-size: 1rem; }
+  .news-body { padding: 0.8rem 1rem 1rem; }
+  .news-body h3 { font-size: 1.3rem; }
+  /* the gold download panels: thinner frame at 1x */
+  .panel { padding: 0.1em 0.3em; }
+  .panel h3 { font-size: 1.3rem; }
+  .downloads .btn { width: 100%; }
+  .social { width: 58px; height: 54px; }
+}
+@media (max-width: 380px) {   /* the narrowest phones: the plank-bar logo + 3 buttons must not touch */
+  .nav-links { gap: 2px; }
+  .btn-nav { font-size: 0.72rem; padding: 0 2px; }
+  .nav { padding: 6px 4px; }
+}
+}
